@@ -5,10 +5,24 @@ from tkinter import *
 
 
 # Generating response
-def get_bot_response(user_input):
-   
-  return bot_response
+from nltk.chat.util import Chat
 
+
+# Generating response
+def get_bot_response(user_input):
+  pairs = [
+    ('my name is (.*)', ['Hello ! % 1']),
+    ('(hi|hello|hey|holla|hola)', ['Hey there !', 'Hi there !', 'Hey !']),
+    ('(.*) your name ?', ['My name is Charlie', 'I\'m Charlie the Chatbot']),
+    ('(.*) do you do ?', ['I specialize in regex pattern matching! How about you?']),
+    ('(.*) created you ?', ['You did! Using python, NLTK and tkinter! '])
+  ]
+
+  chat = Chat(pairs)  
+  while user_input[-1] in "!.":
+    user_input = user_input[:-1]
+  bot_response = chat.respond(user_input)   
+  return bot_response
 
 def create_and_insert_user_frame(user_input):
   userFrame = Frame(chatWindow, bg="#d0ffff")
